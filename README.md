@@ -1,4 +1,4 @@
-# Playwright Test Project
+# Playwright Assignment (Recruitable)
 
 This project uses **Playwright** for end-to-end testing.
 
