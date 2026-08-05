@@ -6,19 +6,18 @@ test('[1] Verify that the career page loads successfully and validate the page t
   const careerPage = new CareerPage(page)
   await careerPage.goto()
   await expect(page).toHaveTitle("Create Next App")
-  await expect(careerPage.getMainHeadingLocator()).toBeVisible()
+  await expect(careerPage.getMainHeading()).toBeVisible()
 })
 
 test('[2] Verify that all job listings are displayed correctly and each job card contains required information (job title, description, and apply button).', async ({ page }) => {
-  await page.goto("/career-page")
-  // Job no 1
-  await expect(page.getByRole('heading', { name: 'Software Engineer' }).nth(0)).toBeVisible();
-  await expect(page.getByText('Software Engineer We are')).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Apply Now' }).nth(0)).toBeVisible();
-  // Job no 2 
-  await expect(page.getByRole('heading', { name: 'Software Engineer' }).nth(1)).toBeVisible();
-  await expect(page.getByText('rdfcgvh')).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Apply Now' }).nth(1)).toBeVisible();
+  const careerPage = new CareerPage(page)
+  await careerPage.goto()
+  await expect(careerPage.getJobByTitle("Software Engineer", 0)).toBeVisible()
+  await expect(careerPage.getJobByTitle("Software Engineer", 1)).toBeVisible()
+  await expect(careerPage.getJobByDescription("Software Engineer We are seeking a highly skilled Software Engineer to join our team in the staffing and recruiting industry, working on a permanent basis in a remote setting, to design, develop, a")).toBeVisible()
+  await expect(careerPage.getJobByDescription("rdfcgvh")).toBeVisible()
+  await expect(careerPage.getJobApplyButton(0)).toBeVisible()
+  await expect(careerPage.getJobApplyButton(1)).toBeVisible()
 })
 
 test('[3] Click on the "Apply" button for a job and verify that the application form opens with all required fields.', async ({ page }) => {

@@ -20,14 +20,16 @@ export class CareerPage {
         expect(this.page).toHaveTitle(this.pageTitle)
     }
 
-    getMainHeadingLocator(): Locator {
+    // Locator Getters 
+
+    getMainHeading(): Locator {
         return this.page.getByRole('heading', { name: this.mainHeading });
     }
 
-    getJobCardLocator(jobTitle: string, jobDescription: string, jobIndex: number | undefined) {
+    getJobByTitle(jobTitle: string, jobIndex: number | undefined): Locator {
         /* NOTE
-         * Omit the argument 'jobIndex' if the career-page has only 1 job post.
-         * And if the career-page has more than 1 job, this fucntion expects an integer in 'jobIndex' parameter
+         * Invoke this method with 'jobIndex' argument only if the 'jobTitle' is not unique.
+         * Else ignore the 'jobIndex' argument
          * Indexing starts from zero.
          */
         if (jobIndex !== undefined) {
@@ -37,10 +39,14 @@ export class CareerPage {
         }
     }
 
-    getApplyButtonLocator(jobIndex: number | undefined) {
+    getJobByDescription(jobDescription: string): Locator {
+        return this.page.getByText(jobDescription)
+    }
+
+    getJobApplyButton(jobIndex: number | undefined): Locator {
         /* NOTE
-         * Omit the argument 'jobIndex' if the career-page has only 1 job post.
-         * And if the career-page has more than 1 job, this fucntion expects an integer in 'jobIndex' parameter
+         * Invoke this method with 'jobIndex' argument only if there are more than one job.
+         * Else ignore the 'jobIndex' argument
          * Indexing starts from zero.
          */
         if (jobIndex !== undefined) {
