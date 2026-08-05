@@ -1,10 +1,12 @@
 
 import { test, expect } from '@playwright/test';
+import { CareerPage } from "../page-objects/career-page"
 
 test('[1] Verify that the career page loads successfully and validate the page title and main heading.', async ({ page }) => {
-  await page.goto("/career-page");
-  await expect(page).toHaveTitle("Create Next App");
-  await expect(page.getByRole('heading', { name: 'Join Our Team' })).toBeVisible();
+  const careerPage = new CareerPage(page)
+  await careerPage.goto()
+  await expect(page).toHaveTitle("Create Next App")
+  await expect(careerPage.getMainHeadingLocator()).toBeVisible()
 })
 
 test('[2] Verify that all job listings are displayed correctly and each job card contains required information (job title, description, and apply button).', async ({ page }) => {
