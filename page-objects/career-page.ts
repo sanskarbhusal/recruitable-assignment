@@ -15,8 +15,8 @@ export class CareerPage {
         await expect(this.page).toHaveTitle(pageTitle)
     }
 
-    assertVisibleMainHeading(mainHeading: string) {
-        return this.page.getByRole('heading', { name: mainHeading });
+    async assertVisibleMainHeading(mainHeading: string) {
+        await expect(this.page.getByRole('heading', { name: mainHeading })).toBeVisible({ timeout: 10000 })
     }
 
     async assertVisibleJobTitle(jobTitle: string, jobIndex?: number) {
